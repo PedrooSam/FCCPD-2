@@ -23,16 +23,16 @@ desafio1/
 
 - O que cada item faz?
 
-A pasta api/ possui os arquivos de configuração da api
-      - api_flask.py: código python que sobe uma api usando o flask
-      - requirements.txt: dependências do arquivo api_flask.py
-      - Dockerfile: configurações para subir o container
-
-A pasta cliente/ possui os arquivos de configuração da do cliente
-      - requisicoes.py: código python que envia requisições periódicas a api
-      - requirements.txt: dependências do arquivo requisicoes.py
-      - Dockerfile: configurações para subir o container
-
+A pasta api/ possui os arquivos de configuração da api</br>
+      - api_flask.py: código python que sobe uma api usando o flask</br>
+      - requirements.txt: dependências do arquivo api_flask.py</br>
+      - Dockerfile: configurações para subir o container</br>
+</br>
+A pasta cliente/ possui os arquivos de configuração da do cliente</br>
+      - requisicoes.py: código python que envia requisições periódicas a api</br>
+      - requirements.txt: dependências do arquivo requisicoes.py</br>
+      - Dockerfile: configurações para subir o container</br>
+</br>
 - Como rodar:
 
 Primeiramente, entre na pasta do desafio 1
@@ -79,24 +79,22 @@ desafio2/
 └── README.md
 ```
 
-- O que cada item faz?
-O arquivo Docker-compose.yaml sobe um banco PostgreSQL
-      - Usa variáveis de ambiente para configurar acesso
-      - Usa volume dbdata para que os dados NÃO sumam após recriar o container
-      - Executa automaticamente o arquivo init.sql
-      - Expõe a porta 5432
-
-Também cria um cliente
-
-      - É um container auxiliar
-      - Permite rodar comandos psql sem instalar nada na máquina
-      - Fica “rodando parado” para você entrar nele quando quiser
-
-E define o volume dbdata
-
-      - Onde os dados verdadeiramente ficam
-      - Sobrevive mesmo após docker compose down
-
+- O que cada item faz?</br>
+O arquivo Docker-compose.yaml sobe um banco PostgreSQL</br>
+      - Usa variáveis de ambiente para configurar acesso</br>
+      - Usa volume dbdata para que os dados NÃO sumam após recriar o container</br>
+      - Executa automaticamente o arquivo init.sql</br>
+      - Expõe a porta 5432</br>
+</br>
+Também cria um cliente</br>
+      - É um container auxiliar</br>
+      - Permite rodar comandos psql sem instalar nada na máquina</br>
+      - Fica “rodando parado” para você entrar nele quando quiser</br>
+</br>
+E define o volume dbdata</br>
+      - Onde os dados verdadeiramente ficam</br>
+      - Sobrevive mesmo após docker compose down</br>
+</br>
 - Como rodar
 
 Primeiramente, entre na pasta do desafio 2
