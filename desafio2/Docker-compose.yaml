@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: desafio2-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: teste
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  client:
+    image: postgres:15
+    container_name: desafio2-client
+    depends_on:
+      - db
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+volumes:
+  dbdata:
