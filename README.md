@@ -25,3 +25,24 @@ Crie uma rede em docker
 ```
 docker network create minha-rede
 ```
+
+Construa e execute o container da API
+´´´
+docker build -t api-flask ./api
+´´´
+´´´
+docker run -d --name servidor --network minha-rede -p 8080:8080 api-flask
+´´´
+
+Construa e execute o container cliente
+´´´
+docker build -t cliente-http ./cliente
+´´´
+´´´
+docker run -d --name cliente --network minha-rede cliente-http
+´´´
+
+Para verificar a conexão, rode
+´´´
+docker logs -f cliente
+´´´
