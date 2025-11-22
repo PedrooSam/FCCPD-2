@@ -1,25 +1,46 @@
+#Versão do Docker Compose
 version: '3.9'
 
 services:
+  #Serviço de Banco de Dados Postgree
   db:
+    #Usa a imagem do postgrees do dockerhub
     image: postgres:15
+
+    #Define o nome do container
     container_name: desafio2-db
+
+    #Define as variáveis de ambiente para funcionamento do banco
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: teste
+
+    #Cria o volume para persistência
     volumes:
       - dbdata:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    #Porta para permitir conexão
     ports:
       - "5432:5432"
 
+  # Serviço do Cliente Postgree
   client:
+
+    #Usa a imagem do postgrees do dockerhub
     image: postgres:15
+
+    #Define o nome do container
     container_name: desafio2-client
+
+    #Define uma dependencia para que o container do cliente só rode depois do banco de dados
     depends_on:
       - db
+
+    #Mantém o container ligado esperando entradas
     entrypoint: ["tail", "-f", "/dev/null"]
 
+#Declaração do volume criado
 volumes:
   dbdata:

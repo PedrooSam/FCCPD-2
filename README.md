@@ -21,6 +21,18 @@ desafio1/
       └── Dockerfile
 ```
 
+- O que cada item faz?
+
+A pasta api/ possui os arquivos de configuração da api
+      - api_flask.py: código python que sobe uma api usando o flask
+      - requirements.txt: dependências do arquivo api_flask.py
+      - Dockerfile: configurações para subir o container
+
+A pasta cliente/ possui os arquivos de configuração da do cliente
+      - requisicoes.py: código python que envia requisições periódicas a api
+      - requirements.txt: dependências do arquivo requisicoes.py
+      - Dockerfile: configurações para subir o container
+
 - Como rodar:
 
 Primeiramente, entre na pasta do desafio 1
@@ -66,6 +78,24 @@ desafio2/
 ├── init.sql
 └── README.md
 ```
+
+- O que cada item faz?
+O arquivo Docker-compose.yaml sobe um banco PostgreSQL
+      - Usa variáveis de ambiente para configurar acesso
+      - Usa volume dbdata para que os dados NÃO sumam após recriar o container
+      - Executa automaticamente o arquivo init.sql
+      - Expõe a porta 5432
+
+Também cria um cliente
+
+      - É um container auxiliar
+      - Permite rodar comandos psql sem instalar nada na máquina
+      - Fica “rodando parado” para você entrar nele quando quiser
+
+E define o volume dbdata
+
+      - Onde os dados verdadeiramente ficam
+      - Sobrevive mesmo após docker compose down
 
 - Como rodar
 
