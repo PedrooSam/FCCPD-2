@@ -1,0 +1,27 @@
+services:
+
+  #Define o serviço dos usuários
+  users-service:
+    build: ./users-service
+    container_name: users-service
+
+    #Porta para comunicação
+    ports:
+      - "5000:5000"
+    networks:
+      - micro-net
+
+  consumer-service:
+    build: ./consumer-service
+    container_name: consumer-service
+    ports:
+      - "6000:6000"
+    environment:
+      USERS_SERVICE_URL: "http://users-service:5000/users"
+    depends_on:
+      - users-service
+    networks:
+      - micro-net
+
+networks:
+  micro-net:

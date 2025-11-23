@@ -198,3 +198,77 @@ Para parar todos os containers:
 ```
 docker compose down
 ```
+
+## Desafio 4
+Este desafio consiste em criar dois microsserviços independentes que se comunicam entre si via HTTP, sem API Gateway. Um microsserviço fornece uma lista de usuários, enquanto o outro consome esses dados e retorna informações processadas.
+
+- Estrutura
+```
+desafio4/
+ │
+ ├── users-service/
+ │   ├── app.py
+ │   ├── requirements.txt
+ │   └── Dockerfile
+ │
+ ├── consumer-service/
+ │   ├── app.py
+ │   ├── requirements.txt
+ │   └── Dockerfile
+ │
+ └── docker-compose.yml
+```
+
+- O que cada item faz?</br>
+
+A pasta users-service/ contém o microsserviço que retorna a lista de usuários</br>
+      - app.py: código Python que sobe uma API Flask com endpoint /users</br>
+      - requirements.txt: dependências utilizadas pelo microsserviço</br>
+      - Dockerfile: configurações para montar o container do users-service</br>
+</br>
+A pasta consumer-service/ contém o microsserviço que consome o serviço de usuários</br>
+      - app.py: código Python que envia uma requisição HTTP ao users-service e processa os dados</br>
+      - requirements.txt: dependências utilizadas pelo microsserviço</br>
+      - Dockerfile: configurações necessárias para montar o container do consumer-service</br>
+</br>
+O arquivo docker-compose.yml orquestra ambos os microsserviços</br>
+      - Define rede, dependências e mapeamento de portas</br>
+      - Garante que o consumer-service só inicie após o users-service</br>
+</br>
+
+Como rodar:
+
+Primeiramente, entre na pasta do desafio 4:
+```
+cd desafio4
+```
+
+Construa e execute os dois microsserviços:
+```
+docker compose up --build
+```
+
+Após subir os serviços, teste cada endpoint em seu navegador
+
+Para acessar o microsserviço de usuários:
+```
+http://localhost:5000/users
+```
+
+Para acessar o microsserviço consumidor:
+```
+http://localhost:6000/info
+```
+
+Para acompanhar os logs de cada serviço:
+```
+docker logs -f users-service
+```
+```
+docker logs -f consumer-service
+```
+
+Para parar tudo:
+```
+docker compose down
+```
