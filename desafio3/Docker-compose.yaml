@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+
+  #Serviço WEB
+  web:
+  #Dockerfile da API Flask
+    build: ./web
+    container_name: desafio3-web
+
+    #Só sobe depois do Postgres e do Redis
+    depends_on:
+      - db
+      - cache
+
+    #Define a porta exposta
+    ports:
+      - "8080:8080"
+
+    #Variáveis de ambiente
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: admin
+      DATABASE_PASSWORD: admin
+      DATABASE_NAME: desafio3
+      REDIS_HOST: cache
+    networks:
+      - internal-net
+
+
+  #Banco de Dados
+  db:
+    image: postgres:15
+    container_name: desafio3-db
+
+    #Variáveis de ambiente
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: desafio3
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal-net
+
+  # Cache Redis
+  cache:
+    image: redis:7
+    container_name: desafio3-cache
+    networks:
+      - internal-net
+
+
+# Volume persistente do Postgres
+volumes:
+  pgdata:
+
+# Rede interna entre os serviços
+networks:
+  internal-net:

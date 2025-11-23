@@ -144,3 +144,57 @@ psql -h db -U admin -d teste
 ```
 SELECT * FROM usuarios;
 ```
+
+## Desafio 3
+Este desafio consiste em orquestrar três serviços usando Docker Compose: um serviço web (API Flask), um banco de dados PostgreSQL e um serviço de cache Redis. O objetivo é demonstrar como o Compose gerencia dependências, redes internas e variáveis de ambiente para integrar múltiplos serviços.
+
+- Estrutura
+```
+desafio3/
+ │
+ ├── web/
+ │    ├── app.py
+ │    ├── requirements.txt
+ │    └── Dockerfile
+ │
+ └── docker-compose.yml
+```
+
+- O que cada item faz?</br>
+
+A pasta web/ possui os arquivos do serviço web</br>
+      - app.py: código Python que sobe uma API Flask e se conecta ao PostgreSQL e Redis</br>
+      - requirements.txt: dependências necessárias para o serviço web</br>
+      - Dockerfile: instruções para construir a imagem do serviço web</br>
+</br>
+O arquivo docker-compose.yml configura os três serviços:</br>
+      - web: serviço Flask que depende do db e do cache</br>
+      - db: container PostgreSQL com volume para persistência</br>
+      - cache: container Redis usado como sistema de cache</br>
+</br>
+- Como rodar:
+
+Primeiramente, entre na pasta do desafio 3
+```
+cd desafio3
+```
+
+Inicie os serviços usando o compose
+```
+docker compose up --build
+```
+
+Após subir os serviços, acesse no navegador:
+```
+http://localhost:8080
+```
+
+Para acompanhar logs do serviço web:
+```
+docker logs -f desafio3-web
+```
+
+Para parar todos os containers:
+```
+docker compose down
+```
