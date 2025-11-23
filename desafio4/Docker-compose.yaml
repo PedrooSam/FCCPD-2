@@ -11,13 +11,20 @@ services:
     networks:
       - micro-net
 
+  #Define o serviço consumer
   consumer-service:
     build: ./consumer-service
     container_name: consumer-service
+
+    #Porta aberta para comunicação
     ports:
       - "6000:6000"
+
+    #Variáveis de ambiente
     environment:
       USERS_SERVICE_URL: "http://users-service:5000/users"
+
+    #Só roda depois do serviço de usuários
     depends_on:
       - users-service
     networks:

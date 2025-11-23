@@ -1,0 +1,41 @@
+services:
+
+  # Serviço de usuários
+  users-service:
+    build: ./users-service
+    container_name: users-service
+    networks:
+      - api-net
+
+  # Serviço de pedidos
+  orders-service:
+    build: ./orders-service
+    container_name: orders-service
+    networks:
+      - api-net
+
+  # API Gateway
+  gateway:
+    build: ./gateway
+    container_name: api-gateway
+
+    #Porta exposta ao usuário
+    ports:
+      - "8000:8000"
+
+    #Define variáveis de ambiente
+    environment:
+      USERS_URL: "http://users-service:5001/users"
+      ORDERS_URL: "http://orders-service:5002/orders"
+
+    #Define os serviços como dependência
+    #O gateway só roda depois dos serviços
+    depends_on:
+      - users-service
+      - orders-service
+    networks:
+      - api-net
+
+#Rede interna dos serviços
+networks:
+  api-net:

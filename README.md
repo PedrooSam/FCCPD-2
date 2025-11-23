@@ -272,3 +272,99 @@ Para parar tudo:
 ```
 docker compose down
 ```
+
+## Desafio 5
+Este desafio consiste em criar dois microsserviços independentes (um de usuários e outro de pedidos) e um API Gateway que centraliza todas as requisições externas. O usuário final acessa apenas o gateway, que internamente consulta os outros microsserviços via HTTP.
+Todos os serviços são executados e orquestrados com Docker Compose.
+
+- Estrutura
+```
+desafio5/
+ │
+ ├── users-service/
+ │   ├── app.py
+ │   ├── requirements.txt
+ │   └── Dockerfile
+ │
+ ├── orders-service/
+ │   ├── app.py
+ │   ├── requirements.txt
+ │   └── Dockerfile
+ │
+ ├── gateway/
+ │   ├── app.py
+ │   ├── requirements.txt
+ │   └── Dockerfile
+ │
+ └── docker-compose.yml
+ ```
+
+- O que cada item faz?</br>
+
+A pasta users-service/ contém o microsserviço responsável pelos usuários</br>
+      - app.py: código Python que sobe uma API com o endpoint /users</br>
+      - requirements.txt: dependências necessárias para esse serviço</br>
+      - Dockerfile: configurações para montar o container do serviço</br>
+</br>
+A pasta orders-service/ contém o microsserviço responsável pelos pedidos</br>
+      - app.py: código Python que sobe uma API com o endpoint /orders</br>
+      - requirements.txt: dependências necessárias para esse serviço</br>
+      - Dockerfile: instruções para construir o container do serviço</br>
+</br>
+A pasta gateway/ contém o API Gateway</br>
+      - app.py: serviço que expõe as rotas /users e /orders e encaminha as requisições</br>
+      - requirements.txt: dependências necessárias (Flask e Requests)</br>
+      - Dockerfile: constrói o container do gateway</br>
+</br>
+O arquivo docker-compose.yml orquestra todos os serviços</br>
+      - Sobe os microsserviços e o gateway</br>
+      - Configura a rede interna</br>
+      - Define dependências e variáveis de ambiente</br>
+      - Expõe apenas o gateway externamente</br>
+</br>
+
+- Como rodar:
+
+Entre na pasta do desafio 5:
+```
+cd desafio5
+```
+
+Suba todos os serviços:
+```
+docker compose up --build
+```
+
+Acesse os endpoints expostos pelo gateway no navegador
+
+Rota principal:
+```
+http://localhost:8000/
+```
+
+Dados dos usuários:
+```
+http://localhost:8000/users
+```
+
+Dados dos pedidos:
+```
+http://localhost:8000/orders
+```
+
+Para acompanhar os logs:
+```
+docker logs -f api-gateway
+```
+```
+docker logs -f users-service
+```
+```
+docker logs -f orders-service
+```
+
+
+Para parar tudo:
+```
+docker compose down
+```
